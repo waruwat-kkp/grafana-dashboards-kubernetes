@@ -3674,8 +3674,8 @@
       {
         "current": {
           "selected": true,
-          "text": "30s",
-          "value": "30s"
+          "text": "5m",
+          "value": "5m"
         },
         "hide": 0,
         "includeAll": false,

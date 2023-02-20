@@ -2,9 +2,10 @@
 generatorOptions:
   disableNameSuffixHash: true
   labels:
-    grafana_dashboard: "true"
+    grafana_dashboard: "1"
 commonAnnotations:
-  grafana_folder: "Kubernetes"
+  grafana_dashboard_path: SIT
+  # grafana_folder: "SIT"
 #namespace: monitoring
 
 # Generate a ConfigMap for each dashboard
@@ -33,8 +34,8 @@ configMapGenerator:
 - name: dashboards-k8s-system-api-server
   files: [ dashboards/k8s-system-api-server.json ]
 
-- name: dashboards-k8s-system-coredns
-  files: [ dashboards/k8s-system-coredns.json ]
+# - name: dashboards-k8s-system-coredns
+#   files: [ dashboards/k8s-system-coredns.json ]
 
-- name: dashboards-k8s-addons-starboard-operator
-  files: [ dashboards/k8s-addons-starboard-operator.json ]
+# - name: dashboards-k8s-addons-starboard-operator
+#   files: [ dashboards/k8s-addons-starboard-operator.json ]
