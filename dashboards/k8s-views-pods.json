@@ -678,7 +678,7 @@
             "uid": "${datasource}"
           },
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (container)",
+          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (exported_container)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -692,7 +692,7 @@
             "uid": "${datasource}"
           },
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (container)",
+          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (exported_container)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -706,7 +706,7 @@
             "uid": "${datasource}"
           },
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (container)",
+          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (exported_container)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -719,7 +719,7 @@
             "uid": "${datasource}"
           },
           "exemplar": false,
-          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (container)",
+          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (exported_container)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -948,7 +948,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}[$__rate_interval])) by (container) / sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (container)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}[$__rate_interval])) by (container) / sum without (exported_container) (label_replace(sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (exported_container), \"container\", \"$1\", \"exported_container\", \"(.+)\"))",
           "interval": "$resolution",
           "legendFormat": "{{ container }}  REQUESTS",
           "range": true,
@@ -960,7 +960,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}[$__rate_interval])) by (container) / sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (container)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}[$__rate_interval])) by (container) /  sum without (exported_container) (label_replace(sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"core\"}) by (exported_container), \"container\", \"$1\", \"exported_container\", \"(.+)\"))",
           "hide": false,
           "legendFormat": "{{ container }}  LIMITS",
           "range": true,
@@ -1074,7 +1074,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}) by (container) / sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (container)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}) by (container) / sum without (exported_container) (label_replace(sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (exported_container), \"container\", \"$1\", \"exported_container\", \"(.+)\"))",
           "interval": "",
           "legendFormat": "{{ container }} REQUESTS",
           "range": true,
@@ -1086,7 +1086,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}) by (container) / sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (container)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=\"$pod\", image!=\"\"}) by (container) /  sum without (exported_container) (label_replace(sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=\"$pod\", unit=\"byte\"}) by (exported_container), \"container\", \"$1\", \"exported_container\", \"(.+)\"))",
           "hide": false,
           "legendFormat": "{{ container }} LIMITS",
           "range": true,
@@ -1298,7 +1298,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{exported_namespace=\"$namespace\", exported_pod=\"$pod\", image!=\"\", container!=\"POD\"}) by (container)",
+          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\", pod=\"$pod\", image!=\"\", container!=\"POD\"}) by (container)",
           "interval": "",
           "legendFormat": "{{ container }}",
           "refId": "A"

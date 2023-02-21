@@ -489,13 +489,13 @@
                 "aggregations": [],
                 "operation": "groupby"
               },
-              "namespace": {
+              "exported_namespace": {
                 "aggregations": [
                   "last"
                 ],
                 "operation": "groupby"
               },
-              "pod": {
+              "exported_pod": {
                 "aggregations": [],
                 "operation": "groupby"
               },
