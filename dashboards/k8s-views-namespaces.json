@@ -143,7 +143,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", image!=\"\"}[$__rate_interval])) / sum(machine_cpu_cores)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{cluster=~\"$cluster\", namespace=~\"$namespace\", image!=\"\"}[$__rate_interval])) / sum(machine_cpu_cores)",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -214,7 +214,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"}) / sum(machine_memory_bytes)",
+          "expr": "sum(container_memory_working_set_bytes{cluster=~\"$cluster\", namespace=~\"$namespace\"}) / sum(machine_memory_bytes)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -313,7 +313,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_running{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_pod_container_status_running{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Running Pods",
           "refId": "A"
@@ -323,7 +323,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_service_info{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_service_info{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Services",
           "refId": "B"
@@ -333,7 +333,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_ingress_info{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_ingress_info{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Ingresses",
           "refId": "C"
@@ -343,7 +343,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_deployment_labels{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_deployment_labels{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Deployments",
           "refId": "D"
@@ -353,7 +353,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_statefulset_labels{namespace=~\"$namespace\"})",
+          "expr": "sum(kube_statefulset_labels{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Statefulsets",
           "refId": "E"
@@ -363,7 +363,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_daemonset_labels{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_daemonset_labels{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Daemonsets",
           "refId": "F"
@@ -373,7 +373,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_persistentvolumeclaim_info{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_persistentvolumeclaim_info{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Persistent Volume Claims",
           "refId": "G"
@@ -383,7 +383,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_hpa_labels{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_hpa_labels{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Horizontal Pod Autoscalers",
           "refId": "H"
@@ -393,7 +393,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_configmap_info{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_configmap_info{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Configmaps",
           "refId": "I"
@@ -403,7 +403,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_secret_info{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_secret_info{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Secrets",
           "refId": "J"
@@ -413,7 +413,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_networkpolicy_labels{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_networkpolicy_labels{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Network Policies",
           "refId": "K"
@@ -475,7 +475,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\"}[$__rate_interval]))",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{cluster=~\"$cluster\", namespace=~\"$namespace\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "Real",
           "range": true,
@@ -487,7 +487,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=~\"$namespace\", unit=\"core\"})",
+          "expr": "sum(kube_pod_container_resource_requests{cluster=~\"$cluster\", exported_namespace=~\"$namespace\", unit=\"core\"})",
           "hide": false,
           "legendFormat": "Requests",
           "range": true,
@@ -499,7 +499,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=~\"$namespace\", unit=\"core\"})",
+          "expr": "sum(kube_pod_container_resource_limits{cluster=~\"$cluster\", exported_namespace=~\"$namespace\", unit=\"core\"})",
           "hide": false,
           "legendFormat": "Limits",
           "range": true,
@@ -511,7 +511,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(machine_cpu_cores)",
+          "expr": "sum(machine_cpu_cores{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Cluster Total",
           "range": true,
@@ -574,7 +574,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\"})",
+          "expr": "sum(container_memory_working_set_bytes{cluster=~\"$cluster\", namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Real",
           "range": true,
@@ -586,7 +586,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=~\"$namespace\", unit=\"byte\"})",
+          "expr": "sum(kube_pod_container_resource_requests{cluster=~\"$cluster\", exported_namespace=~\"$namespace\", unit=\"byte\"})",
           "hide": false,
           "legendFormat": "Requests",
           "range": true,
@@ -598,7 +598,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=~\"$namespace\", unit=\"byte\"})",
+          "expr": "sum(kube_pod_container_resource_limits{cluster=~\"$cluster\", exported_namespace=~\"$namespace\", unit=\"byte\"})",
           "hide": false,
           "legendFormat": "Limits",
           "range": true,
@@ -610,7 +610,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(machine_memory_bytes)",
+          "expr": "sum(machine_memory_bytes{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Cluster Total",
           "range": true,
@@ -722,7 +722,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=~\"$namespace\", image!=\"\"}[$__rate_interval])) by (pod)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{cluster=~\"$cluster\", namespace=~\"$namespace\", image!=\"\"}[$__rate_interval])) by (pod)",
           "interval": "$resolution",
           "legendFormat": "{{ pod }}",
           "refId": "A"
@@ -816,7 +816,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{namespace=~\"$namespace\", image!=\"\"}) by (pod)",
+          "expr": "sum(container_memory_working_set_bytes{cluster=~\"$cluster\", namespace=~\"$namespace\", image!=\"\"}) by (pod)",
           "interval": "$resolution",
           "legendFormat": "{{ pod }}",
           "refId": "A"
@@ -927,7 +927,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_ready{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_pod_container_status_ready{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Ready",
           "refId": "A"
@@ -937,7 +937,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_running{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_pod_container_status_running{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Running",
           "refId": "B"
@@ -947,7 +947,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_waiting{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_pod_container_status_waiting{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Waiting",
           "refId": "C"
@@ -957,7 +957,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_restarts_total{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_pod_container_status_restarts_total{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Restarts Total",
           "refId": "D"
@@ -967,7 +967,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_terminated{exported_namespace=~\"$namespace\"})",
+          "expr": "sum(kube_pod_container_status_terminated{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"})",
           "interval": "",
           "legendFormat": "Terminated",
           "refId": "E"
@@ -1061,7 +1061,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_info{exported_namespace=~\"$namespace\"}) by (pod)",
+          "expr": "sum(kube_pod_container_info{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"}) by (pod)",
           "interval": "",
           "legendFormat": "{{ pod }}",
           "refId": "A"
@@ -1155,7 +1155,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(kube_deployment_status_replicas_available{exported_namespace=~\"$namespace\"}) by (deployment)",
+          "expr": "sum(kube_deployment_status_replicas_available{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"}) by (deployment)",
           "interval": "",
           "legendFormat": "{{ deployment }}",
           "refId": "A"
@@ -1248,7 +1248,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_deployment_status_replicas_unavailable{exported_namespace=~\"$namespace\"}) by (deployment)",
+          "expr": "sum(kube_deployment_status_replicas_unavailable{cluster=~\"$cluster\", exported_namespace=~\"$namespace\"}) by (deployment)",
           "interval": "",
           "legendFormat": "{{ deployment }}",
           "refId": "A"
@@ -1360,7 +1360,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(kubelet_volume_stats_used_bytes{namespace=~\"$namespace\"}) by (persistentvolumeclaim) / sum(kubelet_volume_stats_capacity_bytes{namespace=~\"$namespace\"}) by (persistentvolumeclaim)",
+          "expr": "sum(kubelet_volume_stats_used_bytes{cluster=~\"$cluster\", namespace=~\"$namespace\"}) by (persistentvolumeclaim) / sum(kubelet_volume_stats_capacity_bytes{cluster=~\"$cluster\", namespace=~\"$namespace\"}) by (persistentvolumeclaim)",
           "interval": "",
           "legendFormat": "{{ persistentvolumeclaim }}",
           "refId": "A"
@@ -1455,7 +1455,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(kubelet_volume_stats_inodes_used{namespace=~\"$namespace\"}) by (persistentvolumeclaim) / sum(kubelet_volume_stats_inodes{namespace=~\"$namespace\"}) by (persistentvolumeclaim) * 100",
+          "expr": "sum(kubelet_volume_stats_inodes_used{cluster=~\"$cluster\", namespace=~\"$namespace\"}) by (persistentvolumeclaim) / sum(kubelet_volume_stats_inodes{cluster=~\"$cluster\", namespace=~\"$namespace\"}) by (persistentvolumeclaim) * 100",
           "interval": "",
           "legendFormat": "{{ persistentvolumeclaim }}",
           "refId": "A"
@@ -1494,26 +1494,48 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "kube-system"
-          ],
-          "value": [
-            "kube-system"
-          ]
+          "selected": false,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(kube_pod_info, exported_namespace)",
+        "definition": "label_values(kube_node_info, cluster)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(kube_node_info, cluster)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "label_values(kube_pod_info{cluster=~\"$cluster\"}, exported_namespace)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "namespace",
         "options": [],
         "query": {
-          "query": "label_values(kube_pod_info, exported_namespace)",
+          "query": "label_values(kube_pod_info{cluster=~\"$cluster\"}, exported_namespace)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,

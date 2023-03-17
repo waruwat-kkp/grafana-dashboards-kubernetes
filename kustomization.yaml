@@ -4,8 +4,8 @@ generatorOptions:
   labels:
     grafana_dashboard: "1"
 commonAnnotations:
-  grafana_dashboard_path: SIT
-  # grafana_folder: "SIT"
+  # grafana_dashboard_path: SIT
+  grafana_folder: "General"
 #namespace: monitoring
 
 # Generate a ConfigMap for each dashboard

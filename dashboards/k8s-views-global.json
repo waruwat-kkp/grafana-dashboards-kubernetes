@@ -148,7 +148,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "avg(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "avg(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "Real",
           "range": true,
@@ -160,7 +160,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_requests{unit=\"core\"}) / sum(machine_cpu_cores)",
+          "expr": "sum(kube_pod_container_resource_requests{unit=\"core\",cluster=~\"$cluster\"}) / sum(machine_cpu_cores{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Requests",
           "range": true,
@@ -172,7 +172,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_limits{unit=\"core\"}) / sum(machine_cpu_cores)",
+          "expr": "sum(kube_pod_container_resource_limits{unit=\"core\",cluster=~\"$cluster\"}) / sum(machine_cpu_cores{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Limits",
           "range": true,
@@ -244,7 +244,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\"}) / sum(node_memory_MemTotal_bytes{job=\"node-exporter\"})",
+          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=~\"$cluster\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\",cluster=~\"$cluster\"}) / sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Real",
           "range": true,
@@ -256,7 +256,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_requests{unit=\"byte\"}) / sum(machine_memory_bytes)",
+          "expr": "sum(kube_pod_container_resource_requests{unit=\"byte\",cluster=~\"$cluster\"}) / sum(machine_memory_bytes{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Requests",
           "range": true,
@@ -268,7 +268,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_limits{unit=\"byte\"}) / sum(machine_memory_bytes)",
+          "expr": "sum(kube_pod_container_resource_limits{unit=\"byte\",cluster=~\"$cluster\"}) / sum(machine_memory_bytes{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Limits",
           "range": true,
@@ -329,7 +329,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "count(up{job=\"node-exporter\"})",
+          "expr": "count(up{job=\"node-exporter\",cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -427,7 +427,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(kube_namespace_labels)",
+          "expr": "sum(kube_namespace_labels{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Namespaces",
           "refId": "A"
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_container_status_running)",
+          "expr": "sum(kube_pod_container_status_running{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Running Containers",
           "refId": "B"
@@ -447,7 +447,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_status_phase{phase='Running'})",
+          "expr": "sum(kube_pod_status_phase{phase='Running',cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Running Pods",
           "refId": "O"
@@ -457,7 +457,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_service_info)",
+          "expr": "sum(kube_service_info{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Services",
           "refId": "C"
@@ -467,7 +467,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_endpoint_info)",
+          "expr": "sum(kube_endpoint_info{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Endpoints",
           "refId": "D"
@@ -477,7 +477,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_ingress_info)",
+          "expr": "sum(kube_ingress_info{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Ingresses",
           "refId": "E"
@@ -487,7 +487,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_deployment_labels)",
+          "expr": "sum(kube_deployment_labels{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Deployments",
           "refId": "F"
@@ -497,7 +497,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_statefulset_labels)",
+          "expr": "sum(kube_statefulset_labels{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Statefulsets",
           "refId": "G"
@@ -507,7 +507,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_daemonset_labels)",
+          "expr": "sum(kube_daemonset_labels{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Daemonsets",
           "refId": "H"
@@ -517,7 +517,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_persistentvolumeclaim_info)",
+          "expr": "sum(kube_persistentvolumeclaim_info{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Persistent Volume Claims",
           "refId": "I"
@@ -527,7 +527,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_hpa_labels)",
+          "expr": "sum(kube_hpa_labels{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Horizontal Pod Autoscalers",
           "refId": "J"
@@ -537,7 +537,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_configmap_info)",
+          "expr": "sum(kube_configmap_info{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Configmaps",
           "refId": "K"
@@ -547,7 +547,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_secret_info)",
+          "expr": "sum(kube_secret_info{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Secrets",
           "refId": "L"
@@ -557,7 +557,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_networkpolicy_labels)",
+          "expr": "sum(kube_networkpolicy_labels{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Network Policies",
           "refId": "M"
@@ -568,7 +568,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "count(up{job=\"node-exporter\"})",
+          "expr": "count(up{job=\"node-exporter\",cluster=~\"$cluster\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "Nodes",
@@ -628,7 +628,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "count(kube_namespace_created)",
+          "expr": "count(kube_namespace_created{cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -690,7 +690,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "sum(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "Real",
           "range": true,
@@ -702,7 +702,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_requests{unit=\"core\"})",
+          "expr": "sum(kube_pod_container_resource_requests{unit=\"core\",cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Requests",
           "range": true,
@@ -714,7 +714,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_limits{unit=\"core\"})",
+          "expr": "sum(kube_pod_container_resource_limits{unit=\"core\",cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Limits",
           "range": true,
@@ -726,7 +726,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(machine_cpu_cores)",
+          "expr": "sum(machine_cpu_cores{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Total",
           "range": true,
@@ -789,7 +789,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\"})",
+          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=~\"$cluster\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\",cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "Real",
           "range": true,
@@ -801,7 +801,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_requests{unit=\"byte\"})",
+          "expr": "sum(kube_pod_container_resource_requests{unit=\"byte\",cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Requests",
           "range": true,
@@ -813,7 +813,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(kube_pod_container_resource_limits{unit=\"byte\"})",
+          "expr": "sum(kube_pod_container_resource_limits{unit=\"byte\",cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Limits",
           "range": true,
@@ -825,7 +825,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(machine_memory_bytes)",
+          "expr": "sum(machine_memory_bytes{cluster=~\"$cluster\"})",
           "hide": false,
           "legendFormat": "Total",
           "range": true,
@@ -885,7 +885,7 @@
             "type": "prometheus",
             "uid": "${datasource}"
           },
-          "expr": "sum(kube_pod_status_phase{phase='Running'})",
+          "expr": "sum(kube_pod_status_phase{phase='Running',cluster=~\"$cluster\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1005,7 +1005,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "avg(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "avg(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "$resolution",
           "legendFormat": "CPU usage in %",
           "refId": "A"
@@ -1109,7 +1109,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\"}) / sum(node_memory_MemTotal_bytes{job=\"node-exporter\"})",
+          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=~\"$cluster\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\",cluster=~\"$cluster\"}) / sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=~\"$cluster\"})",
           "interval": "$resolution",
           "legendFormat": "Memory usage in %",
           "range": true,
@@ -1214,7 +1214,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(rate(container_cpu_usage_seconds_total{image!=\"\"}[$__rate_interval])) by (namespace)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{image!=\"\",cluster=~\"$cluster\"}[$__rate_interval])) by (namespace)",
           "interval": "$resolution",
           "legendFormat": "{{ namespace }}",
           "refId": "A"
@@ -1314,7 +1314,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum(container_memory_working_set_bytes{image!=\"\"}) by (namespace)",
+          "expr": "sum(container_memory_working_set_bytes{image!=\"\",cluster=~\"$cluster\"}) by (namespace)",
           "interval": "$resolution",
           "legendFormat": "{{ namespace }}",
           "refId": "A"
@@ -1415,7 +1415,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "avg(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\"}[$__rate_interval])) by (instance)",
+          "expr": "avg(1-rate(node_cpu_seconds_total{mode=\"idle\", job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval])) by (instance)",
           "interval": "$resolution",
           "legendFormat": "{{ node }}",
           "refId": "A"
@@ -1516,7 +1516,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\"}) by (instance)",
+          "expr": "sum(node_memory_MemTotal_bytes{job=\"node-exporter\",cluster=~\"$cluster\"} - node_memory_MemAvailable_bytes{job=\"node-exporter\",cluster=~\"$cluster\"}) by (instance)",
           "interval": "$resolution",
           "legendFormat": "{{ node}}",
           "range": true,
@@ -1629,7 +1629,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(node_network_receive_bytes_total{job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "sum(rate(node_network_receive_bytes_total{job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "$resolution",
           "legendFormat": "Total received bytes",
           "range": true,
@@ -1642,7 +1642,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "- sum(rate(node_network_transmit_bytes_total{job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "- sum(rate(node_network_transmit_bytes_total{job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "$resolution",
           "legendFormat": "Total transmitted bytes",
           "range": true,
@@ -1738,7 +1738,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(node_network_receive_drop_total{job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "sum(rate(node_network_receive_drop_total{job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "$resolution",
           "legendFormat": "Packets dropped (receive)",
           "range": true,
@@ -1751,7 +1751,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "- sum(rate(node_network_transmit_drop_total{job=\"node-exporter\"}[$__rate_interval]))",
+          "expr": "- sum(rate(node_network_transmit_drop_total{job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval]))",
           "interval": "$resolution",
           "legendFormat": "Packets dropped (transmit)",
           "range": true,
@@ -1847,7 +1847,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(container_network_receive_bytes_total[$__rate_interval])) by (namespace)",
+          "expr": "sum(rate(container_network_receive_bytes_total{cluster=~\"$cluster\"}[$__rate_interval])) by (namespace)",
           "interval": "$resolution",
           "legendFormat": "Received bytes in {{ namespace }}",
           "range": true,
@@ -1859,7 +1859,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "- sum(rate(container_network_transmit_bytes_total[$__rate_interval])) by (namespace)",
+          "expr": "- sum(rate(container_network_transmit_bytes_total{cluster=~\"$cluster\"}[$__rate_interval])) by (namespace)",
           "hide": false,
           "interval": "$resolution",
           "legendFormat": "Transmitted bytes in {{ namespace }}",
@@ -1956,7 +1956,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(node_network_receive_bytes_total{job=\"node-exporter\"}[$__rate_interval])) by (instance)",
+          "expr": "sum(rate(node_network_receive_bytes_total{job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval])) by (instance)",
           "interval": "$resolution",
           "legendFormat": "Received bytes in {{ instance }}",
           "range": true,
@@ -1968,7 +1968,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "- sum(rate(node_network_transmit_bytes_total{job=\"node-exporter\"}[$__rate_interval])) by (instance)",
+          "expr": "- sum(rate(node_network_transmit_bytes_total{job=\"node-exporter\",cluster=~\"$cluster\"}[$__rate_interval])) by (instance)",
           "hide": false,
           "interval": "$resolution",
           "legendFormat": "Transmitted bytes in {{ instance }}",
@@ -2006,6 +2006,32 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "definition": "label_values(kube_node_info, cluster)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "cluster",
+        "options": [],
+        "query": {
+          "query": "label_values(kube_node_info, cluster)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       },
       {
         "current": {
